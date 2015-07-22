@@ -1,10 +1,6 @@
-##### 0.0.4 changlog
-1. 修复使用蒙版图层导致标尺显示错误、被遮盖等问题。
-2. 修复无法查看最细的元素的bug
-3. 修复未保存的文件无法导出的bug
-4. 增加了不导出隐藏图层的设定
-5. 增加导出选项（导出选中画板、导出当前页面画板、导出全部画板）
-6. 增加导出时是否将全部图层导出为图片的选项(导出全部图层会使zip包变大)
+
+##### Yo
+This fork is a translation of the original Marketch by [tudou527](http://github.com/tudou527/)
 
 
 
@@ -26,9 +22,19 @@ Notice
 ## Using the Plugin
 * Select pages and artboards in the upper left corner
 * Select an element to view its location and CSS styles on the right side of the page.
-* Select an element and hover another to see the spacing between them. 
-* 
+* Select an element and hover another to see the spacing between them.
+*
 
 ## Thanks
 * [noyobo](https://github.com/noyobo)
 * 许诺
+
+## 0.0.4 Change Log
+1. repair using a mask layer cause display errors ruler, is covered other issues.
+2. Fix can not view the finest elements of bug
+3. Repair unsaved file can not be exported bug
+4. Increase the hidden layers are not exported settings
+5. Increase export options (export selected drawing board, export the current page's Sketchpad, Export all Sketchpad)
+6. Are all the layers when you export images as an option to increase export (export all the layers will zip bag larger)
+
+
