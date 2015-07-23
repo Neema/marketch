@@ -316,15 +316,15 @@ BayMax.prototype = {
     },
 
     /*
-     * 导出图层
-     * layer 需要导出的图层
-     * options 导出选项
-     * options.name 导出文件名，defalt: 2
-     * options.path 导出路径，defalt: 2
-     * options.scale 导出缩放默认，defalt: 2
+    * Export layer
+     * Layer need to export layers
+     * Options export options
+     * Options.name export file name , default: 2
+     * Options.path export path , default: 2
+     * Options.scale Export scaling default , default: 2
      */
     exportLayer: function(layer, options){
-        //导出配置
+        //Export Configuration
         var exportConfig = {
             name: options.path +'/'+ options.name +'.png',
             format: 'png',
@@ -343,7 +343,7 @@ BayMax.prototype = {
         [[MSSliceExporter dataForRequest: slice] writeToFile:exportConfig.name atomically:true];
     },
 
-    //图层组是否包含文字图层
+    //Layer group contains text layers
     hasTextLayer: function(layerGroup){
         var hasTextLayer = false;
         var childLayer = [layerGroup children];
@@ -357,7 +357,7 @@ BayMax.prototype = {
         return hasTextLayer;
     },
 
-    //获取图层数据
+    //Get layer data
     getLayerData: function(layer, zIndex){
         var layerType = [layer className];
         var frame = [layer absoluteRect];
@@ -688,6 +688,7 @@ BayMax.prototype = {
         [[NSFileManager alloc] createDirectoryAtPath:artboardPath withIntermediateDirectories:nil attributes:nil error:nil];
         //导出画板为图片(@2x)
         this.exportLayer(currentArtboard, {name: 'artboard', path: artboardPath, scale: 2});
+
 
         //激活当前画板所在页面
         [doc setCurrentPage:artboardPage];

@@ -386,7 +386,7 @@ Marketch.prototype = {
 
         html.push(
             '<dl>',
-                '<dt><span>位置</span></dt>',
+                '<dt><span>Location(Position)</span></dt>',
                 '<dd>',
                     '<ul>',
                         '<li><label>X：</label>', layerData.x ,'</li>',
@@ -395,11 +395,11 @@ Marketch.prototype = {
                 '</dd>',
             '</dl>',
             '<dl>',
-                '<dt><span>尺寸</span></dt>',
+                '<dt><span>Size</span></dt>',
                 '<dd>',
                     '<ul>',
-                        '<li><label>宽：</label>', layerData.width ,'</li>',
-                        '<li><label>高：</label>', layerData.height ,'</li>',
+                        '<li><label>Width：</label>', layerData.width ,'</li>',
+                        '<li><label>Height：</label>', layerData.height ,'</li>',
                     '</ul>',
                 '</dd>',
             '</dl>'
@@ -408,11 +408,11 @@ Marketch.prototype = {
         if(layerData.border){
             html.push(
                 '<dl>',
-                    '<dt><span>边框</span></dt>',
+                    '<dt><span>Border</span></dt>',
                     '<dd>',
                         '<ul>',
-                            '<li><label>尺寸：</label>', layerData.border.width ,'</li>',
-                            '<li><label>颜色：</label>', layerData.border.color ,'</li>',
+                            '<li><label>With：</label>', layerData.border.width ,'</li>',
+                            '<li><label>Color</label>', layerData.border.color ,'</li>',
                         '</ul>',
                     '</dd>',
                 '</dl>'
@@ -422,7 +422,7 @@ Marketch.prototype = {
         if(layerData.background){
             html.push(
                 '<dl>',
-                    '<dt><span>填充色</span></dt>',
+                    '<dt><span>Fill Color</span></dt>',
                     '<dd>',
                         '<p>', layerData.background ,'</p>',
                     '</dd>',
@@ -433,7 +433,7 @@ Marketch.prototype = {
         if(layerData.radius){
             html.push(
                 '<dl>',
-                    '<dt><span>圆角</span></dt>',
+                    '<dt><span>圆角 Fill? Radius?</span></dt>',
                     '<dd>',
                         '<p>', layerData.radius ,'px</p>',
                     '</dd>',
@@ -444,7 +444,7 @@ Marketch.prototype = {
         if(layerData.html){
             html.push(
                 '<dl>',
-                    '<dt><span>文字</span></dt>',
+                    '<dt><span>Text</span></dt>',
                     '<dd>',
                         '<p>', layerData.html ,'</p>',
                     '</dd>',
@@ -455,7 +455,7 @@ Marketch.prototype = {
         if(layerData.style){
             html.push(
                 '<dl>',
-                    '<dt><span>代码</span></dt>',
+                    '<dt><span>CSS Style</span></dt>',
                     '<dd>',
                         '<textarea readonly>', this.formatStyle(layerData.style).replace(/"/gi, '') ,'</textarea>',
                     '</dd>',
@@ -466,17 +466,17 @@ Marketch.prototype = {
         if(!layerData.html && this.sketchData.exportEveryLayer){
             html.push(
                 '<dl>',
-                    '<dt><span>导出</span></dt>',
+                    '<dt><span>Export</span></dt>',
                     '<dd>',
                         '<ul>',
                             '<li>',
-                                '<label>尺寸：</label><select><option value="2x">2x</option></select>',
+                                '<label>Size:</label><select><option value="2x">2x</option></select>',
                             '</li>',
                             '<li>',
-                                '<label>格式：</label><select><option value="png">png</option></select>',
+                                '<label>Format:</label><select><option value="png">png</option></select>',
                             '</li>',
                         '</ul>',
-                        '<div class="export-btn"><a href="', $('#sw-artboard').val() ,'/', objectId ,'.png" class="panel-export" download="', layerData.name.replace(/\//gi, '-') ,'.png">导出</a></div>',
+                        '<div class="export-btn"><a href="', $('#sw-artboard').val() ,'/', objectId ,'.png" class="panel-export" download="', layerData.name.replace(/\//gi, '-') ,'.png">Export</a></div>',
                     '</dd>',
                 '</dl>'
             )
@@ -584,7 +584,7 @@ Marketch.prototype = {
             .find('span').html(this.validateNum(data.tx + data.tw - data.sx - data.sw + 2) +'px');
         }
 
-        //被选中图层(s)包含鼠标图层(t)
+        //Was selected layer (s) containing the mouse layers (t)
         if(type =='container-out'){
             $('#skm-r-top').css({
                 left: (data.tx + data.tw/2),
@@ -625,8 +625,9 @@ Marketch.prototype = {
     },
 
     /*
-     * 显示标记T表示当前鼠标over的图层，S表示选中的图层
-     * 标尺总是由target指向selected
+     * Display flag T indicates the current mouse over layer, 
+     * S indicates the selected layer
+     * Ruler always selected by the target point
      *  T1     T2
      *   ┌     ┐
      *      S
@@ -658,15 +659,15 @@ Marketch.prototype = {
             ty: targetEl.position().top
         }
         
-        //鼠标经过的图层在选中图层上方(T1 T2的位置)
+        //After the mouse to select the top layer in the layer (position T1 T2's)
         if(data.sy - (data.ty + data.th) >= buffer){
             console.log('-->1');
             if(data.sx - (data.tx + data.tw) >= buffer){
-                //[上]左 显示向下，向右的标尺
+                //[On] display down the left, to the right of the ruler
                 console.log('---->1.1');
                 this.changeRulerState('bottom-right', data);
             }else if(data.tx - (data.sx + data.sw) >= buffer){
-                //[上]右 显示向下，向左的标尺
+                //[On] the right display down, left scale
                 console.log('---->1.2');
                 this.changeRulerState('bottom-left', data);
             }else{
@@ -675,15 +676,15 @@ Marketch.prototype = {
             }
         }
 
-        //鼠标经过的图层在选中图层下方(T1 T2的位置)
+        //The mouse after the layers below the selected layer (position T1 T2's)
         if(data.ty - (data.sy + data.sh) > buffer){
             console.log('-->2');
             if(data.sx - (data.tx + data.tw) >= buffer){
-                //[下]左 显示向上，向右的标尺
+                //[Down] left show up, right scale
                 console.log('---->2.1');
                 this.changeRulerState('top-right', data);
             }else if(data.tx - (data.sx + data.sw) >= buffer){
-                //[下]右 显示向上，向左的标尺
+                //[Under] the right show up, left scale
                 console.log('---->2.2');
                 this.changeRulerState('top-left', data);
             }else{
@@ -692,7 +693,7 @@ Marketch.prototype = {
             }
         }
 
-        //鼠标经过的图层与选中图层映射到垂直线上有交集只显示水平的标尺
+        //After the mouse and select the layer mapping layer to intersect the vertical line only displays horizontal ruler
         if((data.ty >= data.sy && data.ty <= (data.sy + data.sh)) || (data.sy >= data.ty && data.sy <= (data.ty + data.th))){
             if(data.sx - (data.tx + data.tw) >= buffer){
                 console.log('---->3.1');
@@ -701,13 +702,13 @@ Marketch.prototype = {
                 console.log('---->3.2');
                 this.changeRulerState('left', data);
             }else{
-                //鼠标图层(t)包含选中图层(s)(标尺总是由target指向selected)
+                //Mouse layers (t) containing the selected layer (s) (the scale is always the target point selected)
                 console.log('---->3.3');
                 this.changeRulerState('container-in', data);
             }
         }
 
-        //鼠标经过的图层与选中图层映射到水平线上有交集只显示垂直的标尺
+        //After the mouse and select the layer mapping layer to display only horizontal lines intersect the vertical ruler
         if(data.tx >= data.sx && data.tx <= (data.sx + data.sw)){
             console.log('-->4');
             if(data.sy - (data.ty + data.th) >= buffer){
@@ -718,7 +719,7 @@ Marketch.prototype = {
                 this.changeRulerState('top', data);
             }else{
                 console.log('---->4.3');
-                //被选中图层(s)包含鼠标图层(t)(标尺总是由target指向selected)
+                //Was selected layer (s) containing the mouse layers (t) (the scale is always the target point selected)
                 this.changeRulerState('container-out', data);
             }
         }
