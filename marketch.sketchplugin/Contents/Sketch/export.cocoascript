@@ -135,16 +135,8 @@ BayMax.prototype = {
     addLog: function(srcLayer){
         var imgSrc = 'http://eb.alisec.org/statistic.gif?host=marketch&project_name=marketch&page_title=marketch&cute_version=0.0.4';
         var url = [[NSURL alloc] initWithString: imgSrc];
-        var newImage = [[NSImage alloc] initByReferencingURL:url];
-        var layer = [srcLayer duplicate];
-        var fill = [[[layer style] fills] firstObject];
-        var coll = [[[[[layer style] fills] firstObject] documentData] images];
-
-        [fill setFillType: 4];
-        [fill setPatternImage: newImage collection:coll];
-
-        //删除图层
-        [[layer parentGroup] removeLayer: layer];
+        var request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:1.2];
+        [[NSURLConnection alloc] initWithRequest:request delegate:self];
     },
 
     //获取导出选项
@@ -208,6 +200,7 @@ BayMax.prototype = {
     //获取导出路径
     getExportPath: function(){
         var savePanel = NSSavePanel.savePanel();
+        var docName = [doc displayName] + '';
 
         savePanel.setTitle(I18N.EXPORT);
         savePanel.setNameFieldLabel(I18N.EXPORTTO);
@@ -215,6 +208,15 @@ BayMax.prototype = {
         savePanel.setAllowedFileTypes(NSArray.arrayWithObject(@"zip"));
         savePanel.setAllowsOtherFileTypes(false);
         savePanel.setCanCreateDirectories(true);
+
+        if(![doc fileURL]){
+            docName = 'Untitled';
+        }else{
+            docName = docName.replace('.sketch', '')
+        }
+
+        //设置默认导出zip包的文件名为sketch源文件名
+        savePanel.nameFieldStringValue = [NSString stringWithFormat:@"%@.zip", docName];
 
         if (savePanel.runModal() != NSOKButton){
             return false;
